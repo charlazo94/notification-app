@@ -4,11 +4,11 @@ import UsersLogged from "./usersLogged";
 function User({name, chanel}) {
     const [text, setText] = useState('');
     useEffect(() => {
-        console.log(name)
-        console.log(chanel)
-       /* chanel.subscribe('system', function(message) {
-            console.log(message.data);
-        });*/
+        const channel = window.Ably.channels.get('Default')
+        channel.subscribe('system', function(message) {
+
+            setText(message.data);
+        });
     });
 
     function renderUserContent() {
@@ -28,7 +28,11 @@ function User({name, chanel}) {
                         className="form-control"
                         id="exampleFormControlTextarea1"
                         rows="5"
-                    />
+                        value={text}
+                   /> >
+                        {console.log(text)}
+
+
                 </div>
             </div>
         );

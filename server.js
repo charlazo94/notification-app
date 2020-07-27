@@ -9,7 +9,7 @@ app.use(bodyParser.json())
 
 //ably realtime
 const ably = require('ably').Realtime;
-const ablyRealtime = new ably('XXX_API_KEY')
+const ablyRealtime = new ably('81SE9Q.qTZOkg:fi2cihOgfHwZ5tEX')
 const channel = ablyRealtime.channels.get('ably-chat');
 
 //set cors middleware

@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {Route, useLocation,Link, BrowserRouter as Router} from 'react-router-dom'
+require('./ably');
 
 
 ReactDOM.render(

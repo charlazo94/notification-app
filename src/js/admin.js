@@ -5,6 +5,7 @@ function Admin({chanel}) {
     const [text, setText] = useState('');
 
 
+
     function renderAdmin() {
         return (<div className='admin-body'>
             <label>Broadcast Message: </label>
@@ -15,7 +16,6 @@ function Admin({chanel}) {
     }
 
     return (<div>
-        {console.log(chanel)}
         {renderAdmin()}
         <UsersLogged name='Admin'></UsersLogged>
     </div>);

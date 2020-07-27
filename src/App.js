@@ -5,7 +5,7 @@ import Admin from "./js/admin";
 import User from "./js/user";
 import UsersLogged from "./js/usersLogged";
 import {Route, useLocation, Link, BrowserRouter as Router} from 'react-router-dom'
-import {Realtime} from 'ably/browser/static/ably-commonjs.js';
+
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -18,9 +18,9 @@ function App() {
 
     useEffect(() => {
 
-         const ably = new Realtime('g3j9lQ.Ir7L4Q:UBFcHeby8sZ2BIPF');
-         ably.channels.get('test')
-          setChanel(ably);
+
+
+          setChanel(window.Ably.channels.get('Default'));
      },[2]);
     return (
         <div className="App">
