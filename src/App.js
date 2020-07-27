@@ -1,11 +1,30 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Admin from "./js/admin";
+import User from "./js/user";
+import UsersLogged from "./js/usersLogged";
+import {Route, useLocation, Link, BrowserRouter as Router} from 'react-router-dom'
+import {Realtime} from 'ably/browser/static/ably-commonjs.js';
+
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
+    const [chanel, setChanel] = useState(undefined);
+    let query = useQuery()
+
+
+    useEffect(() => {
+
+         const ably = new Realtime('g3j9lQ.Ir7L4Q:UBFcHeby8sZ2BIPF');
+         ably.channels.get('test')
+          setChanel(ably);
+     },[2]);
+    return (
+        <div className="App">
+            {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -18,9 +37,13 @@ function App() {
         >
           Learn React
         </a>
-      </header>
-    </div>
-  );
+      </header>*/}
+            {console.log(chanel)}
+            <Route path='/admin' component={() => <Admin chanel={chanel}/>}/>
+            <Route path='/user' component={() => <User name={query.get('name')} chanel={chanel}/>}/>
+
+        </div>
+    );
 }
 
 export default App;

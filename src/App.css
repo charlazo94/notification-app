@@ -27,6 +27,38 @@
 .App-link {
   color: #61dafb;
 }
+.admin-body {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding-left: 3%;
+  padding-bottom: 3%;
+}
+.users-logged {
+  position: fixed;
+  right: 0;
+  padding-right: 3%;
+  padding-top: 3%;
+}
+.body-user {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding-left: 3%;
+  padding-bottom: 3%;
+}
+.chats {
+  padding-left: 15px;
+
+}
+.label-chat {
+  display: block;
+  float: left;
+}
 
 @keyframes App-logo-spin {
   from {
