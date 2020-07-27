@@ -7,21 +7,25 @@ import UsersLogged from "./js/usersLogged";
 import {Route, useLocation, Link, BrowserRouter as Router} from 'react-router-dom'
 
 
+
+
+
 function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
 function App() {
-    const [chanel, setChanel] = useState(undefined);
-    let query = useQuery()
 
+    let query = useQuery()
 
     useEffect(() => {
 
+    }, []);
 
+   /* function addToUserList(user) {
+        return setUsersList(oldArray => [...oldArray, user])
+    }*/
 
-          setChanel(window.Ably.channels.get('Default'));
-     },[2]);
     return (
         <div className="App">
             {/* <header className="App-header">
@@ -38,10 +42,8 @@ function App() {
           Learn React
         </a>
       </header>*/}
-            {console.log(chanel)}
-            <Route path='/admin' component={() => <Admin chanel={chanel}/>}/>
-            <Route path='/user' component={() => <User name={query.get('name')} chanel={chanel}/>}/>
-
+            <Route path='/admin' component={() => <Admin/>}/>
+            <Route path='/user' component={() => <User  name={query.get('name')}/>}/>
         </div>
     );
 }

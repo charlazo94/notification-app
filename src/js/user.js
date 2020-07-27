@@ -1,15 +1,33 @@
 import React, {useEffect, useState} from 'react';
 import UsersLogged from "./usersLogged";
 
-function User({name, chanel}) {
+function User({name}) {
     const [text, setText] = useState('');
+    const [textTyped, setTextTyped] = useState('');
+    const [textUser, setTextUser] = useState('');
+    const [nameGotten, setName] = useState('');
+
     useEffect(() => {
         const channel = window.Ably.channels.get('Default')
-        channel.subscribe('system', function(message) {
-
+        channel.subscribe('system', function (message) {
             setText(message.data);
         });
-    });
+        channel.subscribe(name, function (message) {
+            setTextUser(message.data);
+        });
+
+    }, []);
+
+    function sendAndClean(texto) {
+        const channel = window.Ably.channels.get('Default')
+        channel.publish(nameGotten, texto);
+        setTextTyped('');
+    }
+
+    function nameToChat(nameReturned) {
+
+        setName(nameReturned)
+    }
 
     function renderUserContent() {
         return (
@@ -20,7 +38,10 @@ function User({name, chanel}) {
                         className="form-control-2"
                         id="exampleFormControlTextarea2"
                         rows="5"
+                        value={textUser}
                     />
+                    <input type='text' value={textTyped} onChange={e => setTextTyped(e.target.value)} name='broadcast'/>
+                    <input type='submit' onClick={() => sendAndClean(textTyped)} Value='Submit'/>
                 </div>
                 <div className='chats'>
                     <label className='label-chat'>System Messages:</label>
@@ -29,10 +50,7 @@ function User({name, chanel}) {
                         id="exampleFormControlTextarea1"
                         rows="5"
                         value={text}
-                   /> >
-                        {console.log(text)}
-
-
+                    />
                 </div>
             </div>
         );
@@ -41,7 +59,7 @@ function User({name, chanel}) {
 
     return (<div>
         {renderUserContent()}
-        <UsersLogged name={name}></UsersLogged>
+        <UsersLogged setNameToChat={nameToChat} name={name}></UsersLogged>
     </div>)
 
 }
